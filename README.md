@@ -17,3 +17,6 @@ To run the python script, run this command in the root level of the repository:
 ```bash
 python .\qualifyingOffer.py
 ```
+## Example Output
+
+![alt text](https://github.com/fennella/philliesQuestionnaire/blob/main/exampleOutput.png?raw=true)
