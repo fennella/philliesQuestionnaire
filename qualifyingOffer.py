@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-## get the raw data from the provide remote source
+## get the raw data from the provided remote source
 def getRawSalaryInfo():
 
     try:
