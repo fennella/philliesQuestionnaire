@@ -15,9 +15,6 @@ def getRawSalaryInfo():
 ## clean the raw data returned from the remote source
 def cleanSalaryData(rawSalaryData):
 
-    if len(rawSalaryData) < 125:
-        print("Error: Not enough salary information was found.")
-        exit(1)
     try:
         cleanedSalaries = list()
         for row in rawSalaryData:
@@ -33,7 +30,10 @@ def cleanSalaryData(rawSalaryData):
     
 ## calculate the qualifying offer
 def calcQualifyingOffer(salaryData):
-
+    
+    if len(rawSalaryData) < 125:
+        print("Error: Not enough salary information was found.")
+        exit(1)
     try:
         salaryData.sort(reverse=True)
         return round(sum(salaryData[:125]) / 125, 2)
