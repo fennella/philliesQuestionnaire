@@ -12,8 +12,8 @@ def getRawSalaryInfo():
         print("Error: Issue retrieving remote salary data. Check your internet connection!")
         exit(1)
 
-## clean the raw data and calculate the qualifying offer
-def calcQualifyingOffer(rawSalaryData):
+## clean the raw data returned from the remote source
+def cleanSalaryData(rawSalaryData):
 
     if len(rawSalaryData) < 125:
         print("Error: Not enough salary information was found.")
@@ -26,17 +26,25 @@ def calcQualifyingOffer(rawSalaryData):
                 continue
             # remove all dollar signs and commas
             cleanedSalaries.append(int(row.text.replace("$", "").replace(",", "")))
-        cleanedSalaries.sort(reverse=True)
-        return round(sum(cleanedSalaries[:125]) / 125, 2)
+        return cleanedSalaries
+    except:
+        print("Error: Issue cleaning the raw salary data")
+        exit(1)
+    
+## calculate the qualifying offer
+def calcQualifyingOffer(salaryData):
+
+    try:
+        salaryData.sort(reverse=True)
+        return round(sum(salaryData[:125]) / 125, 2)
     except:
         print("Error: Issue calculating qualifying offer")
         exit(1)
 
-
 def main():
 
-    rawSalaryData = getRawSalaryInfo()
-    qualifyingOffer = calcQualifyingOffer(rawSalaryData)
+    salaryData = cleanSalaryData(getRawSalaryInfo())
+    qualifyingOffer = calcQualifyingOffer(salaryData)
     formattedOffer = "${:,.2f}".format(qualifyingOffer)
     print(f'Qualifying Offer: {formattedOffer}')
 
